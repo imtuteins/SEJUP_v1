@@ -1,0 +1,50 @@
+/* Fondo general del home */
+.home-abogado-container {
+  background-color: #1e1e1e; /* Gris casi negro */
+  padding: 25px;
+  border-radius: 10px;
+  color: white;
+}
+
+/* Título principal */
+.home-abogado-title {
+  color: #d39b19; /* Dorado legal */
+  font-weight: bold;
+}
+
+/* Acordeón (listas blancas como pediste) */
+.acordeon-abogado .accordion-item {
+  background-color: #ffffff !important;
+  color: #000 !important;
+  border: 1px solid #d6d6d6;
+}
+
+.acordeon-header {
+  font-weight: bold;
+}
+
+.acordeon-body {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+/* Spinner */
+.spinner-border {
+  color: #d39b19 !important;
+}
+
+/* NAVBAR estilo premium */
+.navbar {
+  background-color: #1e1e1e !important; /* Negro carbón */
+}
+
+.navbar-brand,
+.nav-link,
+.navbar-nav .nav-link,
+.navbar-dark .navbar-nav .nav-link {
+  color: #d39b19 !important; /* Dorado legal */
+}
+
+.nav-link:hover {
+  color: #f4e2b0 !important; /* Dorado claro */
+}

@@ -1,0 +1,86 @@
+/* ===== TIPOGRAFÍA GLOBAL SOLO PARA HOMEPAGE ===== */
+.homepage-wrapper,
+.homepage-wrapper * {
+  font-family: "Lucida Sans", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+/* ===== CONTENEDOR PRINCIPAL ===== */
+.homepage-wrapper {
+  position: relative;
+  height: 100%;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+
+
+/* Oscurecimiento del fondo */
+.homepage-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 0;
+}
+
+.homepage-wrapper > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== CARD PRINCIPAL ===== */
+.homepage-card {
+  background: #191919;
+  border-radius: 16px;
+  padding: 24px;
+  color: #d39b19;
+  border: none;
+  margin-top: 10px;
+}
+
+.homepage-card h1 {
+  font-weight: bold;
+  color: #d39b19;
+}
+
+.homepage-card h4 {
+  color: #d39b19;
+}
+
+/* ===== RESEÑAS ===== */
+.homepage-reviews-title {
+  color: #d39b19;
+  margin-bottom: 20px;
+}
+
+.homepage-review-card {
+  background: #191919;
+  border-radius: 10px;
+  color: #d39b19;
+  border: none;
+}
+
+/* ===== TIPOGRAFÍA EXPLÍCITA EN TÍTULOS ===== */
+.homepage-title {
+  font-weight: 700;
+}
+
+.homepage-subtitle {
+  line-height: 1.6;
+}
+
+.reviews-title {
+  font-weight: 700;
+}
+
+.review-card-text {
+  font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}

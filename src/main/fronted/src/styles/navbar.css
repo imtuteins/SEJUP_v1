@@ -1,0 +1,111 @@
+/* NAVBAR SUPERIOR UNIFICADO */
+
+/*
+Colores:
+Background navbar: #0a0a0a
+Background home: #191919
+Letras UNICAMENTE NAVBAR: #d39b19
+*/
+.navbar-global {
+  font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  background-color: #0051ff !important;
+  border-bottom: 1px solid #1e1e1e;
+  padding: 0.6rem 0;
+}
+
+/* LOGO */
+.navbar-logo {
+  font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  filter: drop-shadow(0 0 4px #d39b19);
+}
+
+/* TITULO */
+.navbar-title {
+  font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #d39b19 !important;
+}
+
+/* LINKS */
+.navbar-nav .nav-link {
+  font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: #d39b19 !important;
+  margin-right: 10px;
+  transition: color 0.2s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: #e6e6e6 !important;
+}
+
+/* BOTÓN DE LOGOUT */
+.navbar-logout {
+  font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  border: 1px solid #d39b19 !important;
+  color: #d39b19 !important;
+}
+
+.navbar-logout:hover {
+  font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  background-color: #e6e6e6 !important;
+  color: #1e1e1e !important;
+}
+.navbar-user-info {
+  font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.navbar-user-photo {
+  font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+  border: 2px solid #d39b19;
+}
+
+/* BOTÓN INICIAR SESIÓN */
+.navbar-btn-login {
+  font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  background-color: #0A0A0A !important;  /* Dorado */
+  border-color: #d39b19 !important;
+  color: #d39b19 !important;
+  font-weight: 600;
+  padding-right: 10px;
+  margin-right: 10px
+}
+
+.navbar-btn-login:hover {
+  font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  background-color: #e6e6e6 !important;
+  border-color: #e6e6e6 !important;
+  color: #0A0A0A !important
+}
+
+/* BOTÓN REGISTRARSE */
+.navbar-btn-register {
+  font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  background-color: #d39b19 !important;
+  color: #000 !important;
+  border-color: #d39b19 !important;
+  font-weight: 600;
+}
+
+.navbar-btn-register:hover {
+  font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  background-color: #e6e6e6 !important;
+  border-color: #e6e6e6 !important;
+}
+
+.navbar-btn-group {
+  display: flex;
+  gap: 12px;
+}

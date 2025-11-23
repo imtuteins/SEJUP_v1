@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEJUP - Panel Principal</title>
+
+    <!-- Fuentes y estilos -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/static/index.css}">
+</head>
+
+<body>
+<div class="container">
+    <aside class="sidebar">
+        <div class="logo">SE</div>
+        <div class="menu">
+            <button><i class="fa-solid fa-folder"></i></button>
+            <button><i class="fa-solid fa-calendar"></i></button>
+            <button><i class="fa-solid fa-gear"></i></button>
+        </div>
+        <div class="footer">
+            <h3>SEJUP</h3>
+        </div>
+    </aside>
+
+    <main class="main">
+        <section class="panel">
+            <h2>Línea de avance</h2>
+            <p class="muted">Fecha de inicio: 07/04/2025</p>
+
+            <div class="details">
+                <h3>Detalles del proceso</h3>
+                <div class="info">
+                    <p><strong>Email:</strong> maria_teresa_cardenas@gmail.com</p>
+                    <p><strong>Despacho:</strong> JUZGADO</p>
+                    <p><strong>Tipo identificación:</strong> Cédula</p>
+                    <p><strong>Tipo cliente:</strong> Demandante</p>
+                    <p><strong>Estado:</strong> Ejecutivo</p>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="btn-primary">Ver detalle</button>
+                <button class="btn-secondary">Abrir trazabilidad</button>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>
