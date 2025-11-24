@@ -22,7 +22,7 @@ export default function Register({ show, onClose }) {
         password
       };
 
-      const res = await axios.post("http://localhost:8080/auth/register", newUser);
+      const res = await axios.post("http://localhost:9090/auth/register", newUser);
 
       setSuccess("Registrado correctamente");
 

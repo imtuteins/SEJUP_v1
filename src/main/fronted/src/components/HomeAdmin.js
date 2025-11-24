@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { Accordion } from "react-bootstrap";
 
 import NavbarAdmin from "./NavbarAdmin";
 import ListadoClientes from "./ListadoClientes";

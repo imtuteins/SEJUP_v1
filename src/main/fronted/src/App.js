@@ -24,14 +24,10 @@ function App() {
           <Route path="/home" element={<HomePage />} />
 
           {/* Dashboards */}
-          <Route path="/dashboard_admin/:username" element={<HomeAdmin />} />
+          <Route path="/dashboard_admin/" element={<HomeAdmin />} />
           <Route path="/dashboard_abogado/:username" element={<HomeAbogado />} />
           <Route path="/dashboard_cliente/:username" element={<HomeCliente />} />
 
-          {/* Si quieres agregar rutas adicionales después:
-          <Route path="/dashboard_admin/:username/clientes" element={<ListadoClientes />} />
-          <Route path="/dashboard_admin/:username/abogados" element={<ListadoAbogados />} /> 
-          */}
           
         </Routes>
       </Router>
