@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("/caso")
 public class CasoController {
@@ -20,13 +19,33 @@ public class CasoController {
     private CasoService casoService;
 
     @PostMapping("/crear-caso")
-    public ResponseEntity<?> crearCaso(@RequestBody CrearCasoRequest crearCasoRequest){
+    public ResponseEntity<?> crearCaso(@RequestBody CrearCasoRequest crearCasoRequest) {
         return new ResponseEntity<>(casoService.crearCaso(crearCasoRequest), HttpStatus.CREATED);
     }
 
     @PutMapping("/asignar")
-    public ResponseEntity<?> asignarCaso(@RequestBody AsignarCasoRequest asignarCasoRequest){
+    public ResponseEntity<?> asignarCaso(@RequestBody AsignarCasoRequest asignarCasoRequest) {
         return new ResponseEntity<>(casoService.asignarCaso(asignarCasoRequest), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/todos")
+    public ResponseEntity<?> listarTodosLosCasos() {
+        return ResponseEntity.ok(casoService.findAll());
+    }
+
+    @PutMapping("/{idCaso}/desasignar-abogado")
+    public ResponseEntity<?> desasignarAbogado(@PathVariable Long idCaso) {
+        return ResponseEntity.ok(casoService.desasignarAbogado(idCaso));
+    }
+
+    @PutMapping("/{idCaso}/asignar-cliente/{idCliente}")
+    public ResponseEntity<?> asignarCliente(@PathVariable Long idCaso, @PathVariable Long idCliente) {
+        return ResponseEntity.ok(casoService.asignarCliente(idCaso, idCliente));
+    }
+
+    @PutMapping("/{idCaso}/desasignar-cliente")
+    public ResponseEntity<?> desasignarCliente(@PathVariable Long idCaso) {
+        return ResponseEntity.ok(casoService.desasignarCliente(idCaso));
     }
 
 }

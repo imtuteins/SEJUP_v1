@@ -26,9 +26,11 @@ function App() {
           {/* Dashboards */}
           <Route path="/dashboard_admin/" element={<HomeAdmin />} />
           <Route path="/dashboard_abogado/:username" element={<HomeAbogado />} />
+          <Route path="/dashboard_abogado/" element={<HomeAbogado />} />
           <Route path="/dashboard_cliente/:username" element={<HomeCliente />} />
+          <Route path="/dashboard_cliente/" element={<HomeCliente />} />
 
-          
+
         </Routes>
       </Router>
     </GoogleOAuthProvider>

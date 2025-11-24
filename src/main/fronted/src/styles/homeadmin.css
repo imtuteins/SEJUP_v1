@@ -1,0 +1,45 @@
+/* Fondo general del home admin */
+.home-admin-container {
+  background-color: #1e1e1e; /* Gris casi negro */
+  padding: 25px;
+  border-radius: 10px;
+  color: white;
+  min-height: 80vh;
+}
+
+/* Título principal */
+.home-admin-title {
+  color: #d39b19; /* Dorado legal */
+  font-weight: bold;
+  font-family: "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+/* Acordeón */
+.acordeon-admin .accordion-item {
+  background-color: #ffffff !important;
+  color: #000 !important;
+  border: 1px solid #d6d6d6;
+  margin-bottom: 10px;
+}
+
+.acordeon-admin .accordion-header button {
+  font-weight: bold;
+  color: #000;
+  background-color: #f8f9fa;
+}
+
+.acordeon-admin .accordion-header button:not(.collapsed) {
+  background-color: #e9ecef;
+  color: #d39b19;
+}
+
+.acordeon-admin .accordion-body {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+/* Badges */
+.badge-admin {
+  background-color: #d39b19 !important;
+  color: #000 !important;
+}

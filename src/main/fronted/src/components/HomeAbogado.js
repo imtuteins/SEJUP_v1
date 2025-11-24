@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import NavbarAbogado from "./NavbarAbogado";
 
 export default function HomeAbogado() {
+  console.log('Rendering HomeAbogado');
   const { username } = useParams();
   const [casos, setCasos] = useState([]);
   const [loading, setLoading] = useState(true);

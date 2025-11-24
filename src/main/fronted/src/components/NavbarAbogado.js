@@ -8,6 +8,7 @@ import "../styles/navbar.css";
 import "../styles/homeabogado.css";
 
 export default function NavbarAbogado() {
+  console.log('Rendering NavbarAbogado');
   const navigate = useNavigate();
   const [showAgenda, setShowAgenda] = useState(false);
 
@@ -69,16 +70,16 @@ export default function NavbarAbogado() {
                 Subir Archivos
               </Nav.Link>
             </Nav>
-              <div className="navbar-user-info">
-                <img
-                  src={user} //Devolver el username para colocarlo en alt
-                  alt="Usuario"
-                  className="navbar-user-photo"
-                />
-                <span className="navbar-title">
-                  {localStorage.getItem("nombre") || "Usuario"}
-                </span>
-              </div>
+            <div className="navbar-user-info">
+              <img
+                src={user} //Devolver el username para colocarlo en alt
+                alt="Usuario"
+                className="navbar-user-photo"
+              />
+              <span className="navbar-title">
+                {localStorage.getItem("nombre") || "Usuario"}
+              </span>
+            </div>
             <Button
               variant="outline-light"
               className="navbar-logout"

@@ -9,7 +9,7 @@ function ListadoAbogados() {
       try {
         const token = localStorage.getItem('token');
 
-        const response = await fetch('http://localhost:8080/admin/abogados', {
+        const response = await fetch('http://localhost:9090/admin/abogados', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -37,6 +37,29 @@ function ListadoAbogados() {
     fetchAbogados();
   }, []);
 
+  const handleDelete = async (id) => {
+    const confirm = window.confirm("¿Estás seguro de eliminar este abogado?");
+    if (!confirm) return;
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`http://localhost:9090/admin/usuarios/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        setAbogados(abogados.filter(abogado => abogado.id !== id));
+      } else {
+        setError('Error al eliminar abogado');
+      }
+    } catch (err) {
+      setError('Error al conectar con el servidor');
+    }
+  };
+
   return (
     <div className="container mt-4">
       <h3>Listado de Abogados</h3>
@@ -48,6 +71,7 @@ function ListadoAbogados() {
           <tr>
             <th>ID</th>
             <th>Username</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -55,6 +79,14 @@ function ListadoAbogados() {
             <tr key={abogado.id}>
               <td>{abogado.id}</td>
               <td>{abogado.username}</td>
+              <td>
+                <button
+                  className="btn btn-danger btn-sm"
+                  onClick={() => handleDelete(abogado.id)}
+                >
+                  Eliminar
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

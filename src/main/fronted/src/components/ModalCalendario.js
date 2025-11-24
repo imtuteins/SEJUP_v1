@@ -3,6 +3,8 @@ import { Modal, Button } from "react-bootstrap";
 
 function ModalCalendario({ show, handleClose }) {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [loading, setLoading] = useState(false);
+  const [fechaServidor, setFechaServidor] = useState(null);
 
   // Genera matriz de días para el mes actual
   const generateCalendarDays = () => {
@@ -61,13 +63,13 @@ function ModalCalendario({ show, handleClose }) {
   };
 
 
-  /*
-   // HORA REAL DEL BACKEND 
+
+  //HORA REAL DEL BACKEND 
   useEffect(() => {
     const fetchFechaServidor = async () => {
       try {
         setLoading(true);
-        const res = await fetch("http://localhost:8080/servidor/fecha");
+        const res = await fetch("http://localhost:9090/servidor/fecha");
 
         const data = await res.json();
         setFechaServidor(data); // { fecha: "...", hora: "..." }
@@ -80,11 +82,11 @@ function ModalCalendario({ show, handleClose }) {
     };
 
     if (show) fetchFechaServidor();
-  
-  }, [show]);
-  */
 
- return (
+  }, [show]);
+
+
+  return (
     <Modal show={show} onHide={handleClose} size="lg" centered>
       <Modal.Header closeButton>
         <Modal.Title>Agenda - {title}</Modal.Title>

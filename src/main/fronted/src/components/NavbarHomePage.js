@@ -3,14 +3,13 @@ import { useState } from "react";
 import ContactoModal from "./ContactoModal";
 import QuienesSomos from "./QuienesSomos";
 
-import Login from "./Login"; 
+import Login from "./Login";
 import Register from "./Registro";
 
 import logo from "../logo_removed.png";
 
 export default function NavbarHomePage({
   onInicio,
-  onClientes,
 }) {
 
   // Estado del modal de contacto
@@ -48,10 +47,6 @@ export default function NavbarHomePage({
           <Navbar.Toggle aria-controls="navbar-nav" />
           <Navbar.Collapse id="navbar-nav" className="justify-content-end">
             <Nav className="me-auto">
-
-              <Nav.Link onClick={onInicio} >Inicio</Nav.Link>
-              <Nav.Link onClick={onClientes}>Nuestros Clientes</Nav.Link>
-
               {/* QUIÉNES SOMOS MODAL */}
               <Nav.Link className="navbar-link" onClick={handleQSOpen}>
                 Quiénes Somos
@@ -61,7 +56,7 @@ export default function NavbarHomePage({
               <Nav.Link onClick={handleContactoOpen}>Contacto</Nav.Link>
             </Nav>
             <div className="navbar-btn-group">
-              
+
               <Button variant="outline-light" className="navbar-btn-login" onClick={handleOpenLogin}>Iniciar sesión</Button>
               <Button variant="outline-light" className="navbar-btn-register" onClick={() => setShowRegister(true)}>Registrarse</Button>
 

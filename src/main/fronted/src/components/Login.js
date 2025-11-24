@@ -33,8 +33,8 @@ export default function Login({ show, onClose }) {
 
         // Redirigir según rol
         if (rol === 'ROLE_ADMIN') navigate('/dashboard_admin/');
-        else if (rol === 'ROLE_ABOGADO') navigate('/dashboard_abogado/');
-        else navigate('/dashboard_cliente/');
+        else if (rol === 'ROLE_ABOGADO') navigate(`/dashboard_abogado/${username}`);
+        else navigate(`/dashboard_cliente/${username}`);
 
         onClose(); // cerrar modal
       } else {
@@ -70,18 +70,17 @@ export default function Login({ show, onClose }) {
         // Redirección según rol
         switch (data.rol) {
           case 'ROLE_ADMIN':
-            navigate(`/dashboard_admin/${username}`);
+            navigate(`/dashboard_admin/${data.email}`);
             break;
           case 'ROLE_ABOGADO':
-            navigate( `/dashboard_abogado/${username} `);
+            navigate(`/dashboard_abogado/${data.email}`);
             break;
           case 'ROLE_CLIENTE':
-            navigate( `/dashboard_cliente/${username} `);
+            navigate(`/dashboard_cliente/${data.email}`);
             break;
           default:
             navigate('/home');
         }
-
 
         onClose(); // cerrar modal
       } else {
@@ -91,8 +90,6 @@ export default function Login({ show, onClose }) {
       console.error('Error login Google:', err);
       setError('Error en login con Google');
     }
-
-
   };
 
   return (

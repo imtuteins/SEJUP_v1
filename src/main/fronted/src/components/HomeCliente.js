@@ -5,6 +5,7 @@ import background_cliente from "../background_cliente.jpg";
 import "../styles/homecliente.css";
 
 export default function HomeCliente() {
+  console.log('Rendering HomeCliente');
   const [actualizaciones, setActualizaciones] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

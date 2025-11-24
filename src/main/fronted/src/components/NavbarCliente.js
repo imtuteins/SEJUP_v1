@@ -6,6 +6,7 @@ import logo from "../logo_removed.png";
 import userImg from "../user.png";
 
 function NavbarCliente() {
+  console.log('Rendering NavbarCliente');
   const navigate = useNavigate();
 
   // Datos de usuario
