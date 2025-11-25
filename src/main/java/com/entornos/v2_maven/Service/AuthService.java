@@ -23,10 +23,10 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public AuthService(UsuarioService userService,
-                       RolRepository roleRepository,
-                       PasswordEncoder passwordEncoder,
-                       JwtUtil jwtUtil,
-                       AuthenticationManager authenticationManager) {
+            RolRepository roleRepository,
+            PasswordEncoder passwordEncoder,
+            JwtUtil jwtUtil,
+            AuthenticationManager authenticationManager) {
         this.userService = userService;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
@@ -36,8 +36,7 @@ public class AuthService {
 
     // LOGIN: autentica y genera JWT
     public String authenticate(String username, String password) {
-        UsernamePasswordAuthenticationToken authToken =
-                new UsernamePasswordAuthenticationToken(username, password);
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password);
         Authentication authResult = authenticationManager.authenticate(authToken);
         SecurityContextHolder.getContext().setAuthentication(authResult);
         return jwtUtil.generateToken(authResult);
@@ -55,10 +54,10 @@ public class AuthService {
                 .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
 
         Usuario usuario = new Usuario(
+                null,
                 newUserDto.getUsername(),
                 passwordEncoder.encode(newUserDto.getPassword()),
-                rolUser
-        );
+                rolUser);
 
         userService.save(usuario);
     }
