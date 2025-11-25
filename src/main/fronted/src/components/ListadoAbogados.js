@@ -9,7 +9,7 @@ function ListadoAbogados() {
       try {
         const token = localStorage.getItem('token');
 
-        const response = await fetch('http://localhost:9090/admin/abogados', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/admin/abogados`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ function ListadoAbogados() {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:9090/admin/usuarios/${id}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/admin/usuarios/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

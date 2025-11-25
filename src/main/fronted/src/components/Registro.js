@@ -22,7 +22,7 @@ export default function Register({ show, onClose }) {
         password
       };
 
-      const res = await axios.post("http://localhost:9090/auth/register", newUser);
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, newUser);
 
       setSuccess("Registrado correctamente");
 
@@ -48,7 +48,7 @@ export default function Register({ show, onClose }) {
               {success && <Alert variant="success">{success}</Alert>}
 
               <Form onSubmit={handleRegister}>
-                
+
                 <Form.Group className="mb-3">
                   <Form.Label>Nombre completo</Form.Label>
                   <Form.Control

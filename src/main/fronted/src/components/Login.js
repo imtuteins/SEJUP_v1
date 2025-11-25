@@ -16,7 +16,7 @@ export default function Login({ show, onClose }) {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:9090/auth/login', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -30,6 +30,7 @@ export default function Login({ show, onClose }) {
         const decoded = jwtDecode(token);
         const rol = decoded.role; // ROLE_ADMIN, ROLE_ABOGADO, ROLE_CLIENTE
         localStorage.setItem('rol', rol);
+        localStorage.setItem('username', username); // Guardar username para usar en navbars
 
         // Redirigir según rol
         if (rol === 'ROLE_ADMIN') navigate('/dashboard_admin/');
@@ -50,7 +51,7 @@ export default function Login({ show, onClose }) {
     const tokenGoogle = credentialResponse.credential;
 
     try {
-      const response = await fetch('http://localhost:9090/auth/google', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/google`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tokenGoogle }),

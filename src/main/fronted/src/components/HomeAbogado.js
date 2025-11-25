@@ -3,6 +3,8 @@ import { Container, Spinner, Alert, Accordion } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import NavbarAbogado from "./NavbarAbogado";
 
+import background_abogado from "../background_abogado.jpg";
+
 export default function HomeAbogado() {
   console.log('Rendering HomeAbogado');
   const { username } = useParams();
@@ -25,10 +27,20 @@ export default function HomeAbogado() {
   }, []);
 
   return (
-    <>
+    <div
+      className="home-abogado-wrapper"
+      style={{
+        backgroundImage: `url(${background_abogado})`,
+        minHeight: "100vh",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed"
+      }}
+    >
       <NavbarAbogado />
 
-      <Container className="home-abogado-container mt-4">
+      <Container className="home-abogado-container mt-4" style={{ backgroundColor: "rgba(30, 30, 30, 0.9)" }}>
         <h2 className="home-abogado-title text-center mb-4">
           Bienvenido, {nombreAbogado}
         </h2>
@@ -63,6 +75,6 @@ export default function HomeAbogado() {
           </Accordion>
         )}
       </Container>
-    </>
+    </div>
   );
 }

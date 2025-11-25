@@ -62,14 +62,12 @@ function ModalCalendario({ show, handleClose }) {
     );
   };
 
-
-
   //HORA REAL DEL BACKEND 
   useEffect(() => {
     const fetchFechaServidor = async () => {
       try {
         setLoading(true);
-        const res = await fetch("http://localhost:9090/servidor/fecha");
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/servidor/fecha`);
 
         const data = await res.json();
         setFechaServidor(data); // { fecha: "...", hora: "..." }

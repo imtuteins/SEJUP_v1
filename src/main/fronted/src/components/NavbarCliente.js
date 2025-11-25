@@ -145,7 +145,7 @@ function NavbarCliente() {
             <div className="navbar-user-info">
               <img src={foto} alt="Usuario" className="navbar-user-photo" />
               <span className="navbar-title">
-                {localStorage.getItem("nombre") || "Usuario"}
+                {localStorage.getItem("username") || "Usuario"}
               </span>
             </div>
 

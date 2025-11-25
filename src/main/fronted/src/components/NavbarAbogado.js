@@ -77,7 +77,7 @@ export default function NavbarAbogado() {
                 className="navbar-user-photo"
               />
               <span className="navbar-title">
-                {localStorage.getItem("nombre") || "Usuario"}
+                {localStorage.getItem("username") || "Usuario"}
               </span>
             </div>
             <Button

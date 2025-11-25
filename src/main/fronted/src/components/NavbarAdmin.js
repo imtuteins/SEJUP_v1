@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Navbar, Nav, Container, Button, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import logo from '../logo_removed.png';
+import userImg from '../user.png';
 import '../styles/navbar.css';
 
 // Importar los componentes de listado
@@ -52,6 +53,13 @@ function NavbarAdmin() {
                 Listado de Casos
               </Nav.Link>
             </Nav>
+
+            <div className="navbar-user-info">
+              <img src={userImg} alt="Usuario" className="navbar-user-photo" />
+              <span className="navbar-title">
+                {localStorage.getItem("username") || "Admin"}
+              </span>
+            </div>
 
             {/* CERRAR SESIÓN */}
             <Button className="navbar-logout" onClick={handleLogout}>

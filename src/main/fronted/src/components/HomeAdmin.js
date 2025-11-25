@@ -19,7 +19,7 @@ function HomeAdmin() {
         const headers = { Authorization: `Bearer ${token}` };
 
         // Fetch Clientes
-        const resClientes = await fetch("http://localhost:9090/admin/usuarios", { headers });
+        const resClientes = await fetch(`${process.env.REACT_APP_API_URL}/admin/usuarios`, { headers });
         let countClientes = 0;
         if (resClientes.ok) {
           const data = await resClientes.json();
@@ -27,7 +27,7 @@ function HomeAdmin() {
         }
 
         // Fetch Abogados
-        const resAbogados = await fetch("http://localhost:9090/admin/abogados", { headers });
+        const resAbogados = await fetch(`${process.env.REACT_APP_API_URL}/admin/abogados`, { headers });
         let countAbogados = 0;
         if (resAbogados.ok) {
           const data = await resAbogados.json();
@@ -35,7 +35,7 @@ function HomeAdmin() {
         }
 
         // Fetch Casos
-        const resCasos = await fetch("http://localhost:9090/caso/todos", { headers });
+        const resCasos = await fetch(`${process.env.REACT_APP_API_URL}/caso/todos`, { headers });
         let countCasos = 0;
         if (resCasos.ok) {
           const data = await resCasos.json();
