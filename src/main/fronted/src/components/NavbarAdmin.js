@@ -9,6 +9,7 @@ import '../styles/navbar.css';
 import ListadoClientes from "./ListadoClientes";
 import ListadoAbogados from "./ListadoAbogados";
 import ListadoCasos from "./ListadoCasos";
+import ModalSubirArchivo from "./ModalSubirArchivo";
 
 function NavbarAdmin() {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ function NavbarAdmin() {
   const [showClientes, setShowClientes] = useState(false);
   const [showAbogados, setShowAbogados] = useState(false);
   const [showCasos, setShowCasos] = useState(false);
+  const [showUpload, setShowUpload] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -51,6 +53,10 @@ function NavbarAdmin() {
 
               <Nav.Link onClick={() => setShowCasos(true)} className="nav-link">
                 Listado de Casos
+              </Nav.Link>
+
+              <Nav.Link onClick={() => setShowUpload(true)} className="nav-link">
+                Subir Archivos
               </Nav.Link>
             </Nav>
 
@@ -108,6 +114,9 @@ function NavbarAdmin() {
           <Button variant="secondary" onClick={() => setShowCasos(false)}>Cerrar</Button>
         </Modal.Footer>
       </Modal>
+
+      {/* MODAL SUBIR ARCHIVO */}
+      <ModalSubirArchivo show={showUpload} handleClose={() => setShowUpload(false)} />
     </>
   );
 }

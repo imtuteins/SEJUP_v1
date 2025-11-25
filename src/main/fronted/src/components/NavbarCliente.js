@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/navbar.css";
 import logo from "../logo_removed.png";
 import userImg from "../user.png";
+import ModalSubirArchivo from "./ModalSubirArchivo";
 
 function NavbarCliente() {
   console.log('Rendering NavbarCliente');
@@ -19,6 +20,7 @@ function NavbarCliente() {
 
   // Estado modal y formulario
   const [showModal, setShowModal] = useState(false);
+  const [showUpload, setShowUpload] = useState(false); // Estado para modal de subida
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [esDemandado, setEsDemandado] = useState(false);
@@ -53,11 +55,7 @@ function NavbarCliente() {
   };
 
   const handleSubirArchivos = () => {
-    if (!casoActivoId) {
-      alert("No hay un caso activo. Crea o selecciona un caso primero.");
-      return;
-    }
-    navigate(`/upload/${casoActivoId}`);
+    setShowUpload(true);
   };
 
   const openModal = () => {
@@ -136,10 +134,8 @@ function NavbarCliente() {
                   Crear Caso
                 </Nav.Link>
               </Nav.Item>
-              {/* Subir Archivos solo si hay caso activo */}
-              {casoActivoId && (
-                <Nav.Link onClick={handleSubirArchivos}>Subir Archivos</Nav.Link>
-              )}
+              {/* Subir Archivos */}
+              <Nav.Link onClick={handleSubirArchivos}>Subir Archivos</Nav.Link>
             </Nav>
 
             <div className="navbar-user-info">
@@ -226,6 +222,9 @@ function NavbarCliente() {
           </Modal.Footer>
         </Form>
       </Modal>
+
+      {/* Modal de Subida de Archivos */}
+      <ModalSubirArchivo show={showUpload} handleClose={() => setShowUpload(false)} />
     </>
   );
 }

@@ -6,11 +6,13 @@ import logo from "../logo_removed.png";
 import user from "../user.png"
 import "../styles/navbar.css";
 import "../styles/homeabogado.css";
+import ModalSubirArchivo from "./ModalSubirArchivo";
 
 export default function NavbarAbogado() {
   console.log('Rendering NavbarAbogado');
   const navigate = useNavigate();
   const [showAgenda, setShowAgenda] = useState(false);
+  const [showUpload, setShowUpload] = useState(false);
 
   const nombreAbogado = localStorage.getItem("nombre") || "Abogado";
 
@@ -20,7 +22,7 @@ export default function NavbarAbogado() {
   };
 
   const handleSubirArchivos = () => {
-    alert("Funcionalidad de subir archivos en desarrollo");
+    setShowUpload(true);
   };
 
   return (
@@ -95,6 +97,12 @@ export default function NavbarAbogado() {
       <ModalCalendario
         show={showAgenda}
         handleClose={() => setShowAgenda(false)}
+      />
+
+      {/* Modal Subir Archivo */}
+      <ModalSubirArchivo
+        show={showUpload}
+        handleClose={() => setShowUpload(false)}
       />
     </>
   );
