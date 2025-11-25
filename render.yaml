@@ -1,9 +1,8 @@
 services:
   - type: web
     name: sejup-backend
-    env: java
-    buildCommand: mvn clean package -DskipTests
-    startCommand: java -jar target/V2_Maven-0.0.1-SNAPSHOT.jar
+    runtime: docker
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: SPRING_DATASOURCE_URL
         fromDatabase:
@@ -17,6 +16,10 @@ services:
         value: update
       - key: SPRING_JPA_SHOW_SQL
         value: false
+      - key: ALLOWED_ORIGINS
+        value: http://localhost:3000
+      - key: DATABASE_DRIVER
+        value: org.postgresql.Driver
 
 databases:
   - name: sejup-db
