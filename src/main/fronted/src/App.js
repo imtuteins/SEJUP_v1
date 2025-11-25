@@ -24,11 +24,12 @@ function App() {
           <Route path="/home" element={<HomePage />} />
 
           {/* Dashboards */}
-          <Route path="/dashboard_admin/" element={<HomeAdmin />} />
-          <Route path="/dashboard_abogado/:username" element={<HomeAbogado />} />
-          <Route path="/dashboard_abogado/" element={<HomeAbogado />} />
-          <Route path="/dashboard_cliente/:username" element={<HomeCliente />} />
-          <Route path="/dashboard_cliente/" element={<HomeCliente />} />
+          <Route path="/dashboard_admin/*" element={<HomeAdmin />} />
+          <Route path="/dashboard_abogado/*" element={<HomeAbogado />} />
+          <Route path="/dashboard_cliente/*" element={<HomeCliente />} />
+
+          {/* Fallback para rutas no encontradas */}
+          <Route path="*" element={<Navigate to="/home" />} />
 
 
         </Routes>
