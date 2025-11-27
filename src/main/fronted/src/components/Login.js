@@ -16,7 +16,7 @@ export default function Login({ show, onClose }) {
     setError('');
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
+      const response = await fetch(`http://localhost:8080/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -51,7 +51,7 @@ export default function Login({ show, onClose }) {
     const tokenGoogle = credentialResponse.credential;
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/google`, {
+      const response = await fetch(`http://localhost:8080/auth/google`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tokenGoogle }),

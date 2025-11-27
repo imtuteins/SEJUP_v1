@@ -67,7 +67,7 @@ function ModalCalendario({ show, handleClose }) {
     const fetchFechaServidor = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/servidor/fecha`);
+        const res = await fetch(`http://localhost:8080/servidor/fecha`);
 
         const data = await res.json();
         setFechaServidor(data); // { fecha: "...", hora: "..." }

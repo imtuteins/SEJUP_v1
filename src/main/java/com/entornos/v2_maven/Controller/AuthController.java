@@ -124,6 +124,7 @@ public class AuthController {
             response.put("jwt", jwt);
             response.put("email", email);
             response.put("nombre", name);
+            response.put("rol", usuario.getRol().getName().name()); // Return role name
             return ResponseEntity.ok(response);
 
         } catch (Exception e) {

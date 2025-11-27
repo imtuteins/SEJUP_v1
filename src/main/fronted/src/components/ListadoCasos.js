@@ -30,11 +30,11 @@ function ListadoCasos() {
       const headers = { Authorization: `Bearer ${token}` };
 
       // Fetch Casos
-      const resCasos = await fetch(`${process.env.REACT_APP_API_URL}/caso/todos`, { headers });
+      const resCasos = await fetch(`http://localhost:8080/caso/todos`, { headers });
       if (resCasos.ok) setCasos(await resCasos.json());
 
       // Fetch Clientes (Usuarios)
-      const resClientes = await fetch(`${process.env.REACT_APP_API_URL}/admin/usuarios`, { headers });
+      const resClientes = await fetch(`http://localhost:8080/admin/usuarios`, { headers });
       if (resClientes.ok) {
         const allUsers = await resClientes.json();
         // Filter for clients if possible, otherwise show all. Assuming ROLE_CLIENTE exists or just show all.
@@ -43,7 +43,7 @@ function ListadoCasos() {
       }
 
       // Fetch Abogados
-      const resAbogados = await fetch(`${process.env.REACT_APP_API_URL}/admin/abogados`, { headers });
+      const resAbogados = await fetch(`http://localhost:8080/admin/abogados`, { headers });
       if (resAbogados.ok) setAbogados(await resAbogados.json());
 
     } catch (err) {
@@ -74,10 +74,10 @@ function ListadoCasos() {
       let method = "PUT";
 
       if (modalType === "cliente") {
-        url = `${process.env.REACT_APP_API_URL}/caso/${selectedCaso.id}/asignar-cliente/${selectedUser}`;
+        url = `http://localhost:8080/caso/${selectedCaso.id}/asignar-cliente/${selectedUser}`;
       } else {
         // For lawyer assignment, existing endpoint uses body
-        url = `${process.env.REACT_APP_API_URL}/caso/asignar`;
+        url = `http://localhost:8080/caso/asignar`;
         const body = JSON.stringify({ idCaso: selectedCaso.id, idAbogado: selectedUser });
 
         const res = await fetch(url, { method, headers, body });
@@ -112,9 +112,9 @@ function ListadoCasos() {
       let url = "";
 
       if (type === "cliente") {
-        url = `${process.env.REACT_APP_API_URL}/caso/${caso.id}/desasignar-cliente`;
+        url = `http://localhost:8080/caso/${caso.id}/desasignar-cliente`;
       } else {
-        url = `${process.env.REACT_APP_API_URL}/caso/${caso.id}/desasignar-abogado`;
+        url = `http://localhost:8080/caso/${caso.id}/desasignar-abogado`;
       }
 
       const res = await fetch(url, { method: "PUT", headers });

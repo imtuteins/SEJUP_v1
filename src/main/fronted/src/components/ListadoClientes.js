@@ -9,7 +9,7 @@ function ListadoClientes() {
     const fetchClientes = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/admin/usuarios`, {
+        const response = await fetch(`http://localhost:8080/admin/usuarios`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ function ListadoClientes() {
 
     try {
       const token = localStorage.getItem('token');
-      await fetch(`${process.env.REACT_APP_API_URL}/admin/usuarios/${id}/role`, {
+      await fetch(`http://localhost:8080/admin/usuarios/${id}/role`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ function ListadoClientes() {
     try {
 
       const token = localStorage.getItem('token');
-      await fetch(`${process.env.REACT_APP_API_URL}/admin/usuarios/${id}`, {
+      await fetch(`http://localhost:8080/admin/usuarios/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
