@@ -19,7 +19,6 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Column(nullable = false, unique = true)
     private String username;
 
@@ -29,12 +28,5 @@ public class Usuario {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", nullable = false)
     private Rol rol;
-
-
-    public Usuario(String username, String password, Rol rol) {
-        this.username = username;
-        this.password = password;
-        this.rol = rol;
-    }
 
 }

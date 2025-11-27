@@ -10,15 +10,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface Archivoservice {
+public interface ArchivoService {
 
-    //Permite almacenar archivos
+    // Permite almacenar archivos
     Archivo store(MultipartFile file) throws IOException;
 
-    //Descarga de archivos
-    Optional<Archivo> getfile (UUID id) throws FileNotFoundException;
+    // Descarga de archivos
+    Optional<Archivo> getfile(UUID id) throws FileNotFoundException;
 
-    //Consulta de archivos
+    // Consulta de archivos
     List<ResponseArchivo> getfiles();
 
     Archivo storeForCurrentUser(MultipartFile file) throws IOException;

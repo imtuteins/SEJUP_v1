@@ -22,7 +22,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class ArchivoServiceImpl implements Archivoservice {
+public class ArchivoServiceImpl implements ArchivoService {
 
     @Autowired
     private ArchivoRepository archivoRepository;
@@ -53,7 +53,6 @@ public class ArchivoServiceImpl implements Archivoservice {
                 });
     }
 
-
     @Override
     public List<ResponseArchivo> getfiles() {
         return archivoRepository.findAll().stream().map(dbfile -> {
@@ -71,7 +70,6 @@ public class ArchivoServiceImpl implements Archivoservice {
                     .build();
         }).collect(Collectors.toList());
     }
-
 
     @Override
     public Archivo storeForCurrentUser(MultipartFile file) throws IOException {
