@@ -1,99 +1,176 @@
-import React, { useEffect, useState } from "react";
-import { Accordion, Container, Spinner, Alert, Badge } from "react-bootstrap";
-import NavbarAdmin from "./NavbarAdmin";
+import React, { useEffect, useState } from 'react';
+import { Container, Table, Alert, Spinner, Button, Modal, Form } from 'react-bootstrap';
+import NavbarAdmin from './NavbarAdmin';
+import axios from 'axios';
 import "../styles/homeadmin.css"; // Importar estilos
 
 function HomeAdmin() {
-  const [stats, setStats] = useState({
-    clientes: 0,
-    abogados: 0,
-    casos: 0
-  });
+  const [casos, setCasos] = useState([]);
+  const [abogados, setAbogados] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [selectedCaso, setSelectedCaso] = useState(null);
+  const [selectedAbogado, setSelectedAbogado] = useState('');
 
   useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const headers = { Authorization: `Bearer ${token}` };
-
-        // Fetch Clientes
-        const resClientes = await fetch(`http://localhost:8080/admin/usuarios`, { headers });
-        let countClientes = 0;
-        if (resClientes.ok) {
-          const data = await resClientes.json();
-          countClientes = data.filter(u => u.rol?.name === "ROLE_CLIENTE").length;
-        }
-
-        // Fetch Abogados
-        const resAbogados = await fetch(`http://localhost:8080/admin/abogados`, { headers });
-        let countAbogados = 0;
-        if (resAbogados.ok) {
-          const data = await resAbogados.json();
-          countAbogados = data.length;
-        }
-
-        // Fetch Casos
-        const resCasos = await fetch(`http://localhost:8080/caso/todos`, { headers });
-        let countCasos = 0;
-        if (resCasos.ok) {
-          const data = await resCasos.json();
-          countCasos = data.length;
-        }
-
-        setStats({ clientes: countClientes, abogados: countAbogados, casos: countCasos });
-      } catch (err) {
-        setError("Error al cargar estadísticas.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchStats();
+    fetchCasos();
+    fetchAbogados();
   }, []);
+
+  const fetchCasos = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setError('No hay token. Inicia sesión primero.');
+        setLoading(false);
+        return;
+      }
+
+      const res = await axios.get('http://localhost:8080/caso/todos', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setCasos(res.data);
+    } catch (err) {
+      setError('No se pudieron cargar los casos.');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchAbogados = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await axios.get('http://localhost:8080/admin/abogados', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setAbogados(res.data);
+    } catch (err) {
+      console.error('Error al cargar abogados:', err);
+    }
+  };
+
+  const handleAsignar = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.put('http://localhost:8080/caso/asignar', {
+        idCaso: selectedCaso.id,
+        idAbogado: parseInt(selectedAbogado)
+      }, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setShowModal(false);
+      setSelectedCaso(null);
+      setSelectedAbogado('');
+      fetchCasos();
+    } catch (err) {
+      console.error('Error al asignar caso:', err);
+      alert('Error al asignar el caso');
+    }
+  };
+
+  const openAsignarModal = (caso) => {
+    setSelectedCaso(caso);
+    setShowModal(true);
+  };
 
   return (
     <>
       <NavbarAdmin />
-
       <Container className="mt-4 home-admin-container">
-        <h2 className="mb-4 home-admin-title">Panel de Administración</h2>
+        <h3 className="mb-4 home-admin-title">🏛️ Todos los Casos del Sistema</h3>
 
-        {loading && <Spinner animation="border" variant="warning" />}
+        {loading && (
+          <div className="text-center">
+            <Spinner animation="border" variant="warning" />
+            <p>Cargando casos...</p>
+          </div>
+        )}
+
         {error && <Alert variant="danger">{error}</Alert>}
 
-        {!loading && !error && (
-          <Accordion defaultActiveKey="0" className="acordeon-admin">
-            <Accordion.Item eventKey="0">
-              <Accordion.Header>
-                Clientes Registrados <Badge className="ms-2 badge-admin">{stats.clientes}</Badge>
-              </Accordion.Header>
-              <Accordion.Body>
-                Aquí puedes ver un resumen de los clientes registrados en la plataforma.
-                Utiliza el menú de navegación para ver el listado completo y gestionar sus cuentas.
-              </Accordion.Body>
-            </Accordion.Item>
-
-            <Accordion.Item eventKey="1">
-              <Accordion.Header>
-                Abogados Disponibles <Badge className="ms-2 badge-admin">{stats.abogados}</Badge>
-              </Accordion.Header>
-              <Accordion.Body>
-                Resumen del equipo legal. Gestiona sus perfiles y asignaciones desde el menú superior.
-              </Accordion.Body>
-            </Accordion.Item>
-
-            <Accordion.Item eventKey="2">
-              <Accordion.Header>
-                Casos Activos <Badge className="ms-2 badge-admin">{stats.casos}</Badge>
-              </Accordion.Header>
-              <Accordion.Body>
-                Total de casos legales registrados en el sistema. Puedes asignar clientes y abogados desde la sección de Casos.
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
+        {!loading && casos.length > 0 && (
+          <Table striped bordered hover responsive className="table-admin">
+            <thead className="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Tipo</th>
+                <th>Cliente</th>
+                <th>Abogado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {casos.map((caso, index) => (
+                <tr key={caso.id}>
+                  <td>{index + 1}</td>
+                  <td>{caso.titulo}</td>
+                  <td>{caso.descripcion}</td>
+                  <td>{caso.esDemandado ? 'Demandado' : 'Demandante'}</td>
+                  <td>{caso.cliente ? caso.cliente.username : 'N/A'}</td>
+                  <td>{caso.abogado ? caso.abogado.username : 'Sin asignar'}</td>
+                  <td>
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      onClick={() => openAsignarModal(caso)}
+                    >
+                      {caso.abogado ? 'Reasignar' : 'Asignar'}
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
         )}
+
+        {!loading && casos.length === 0 && !error && (
+          <Alert variant="info">No hay casos en el sistema.</Alert>
+        )}
+
+        {/* Modal para asignar abogado */}
+        <Modal show={showModal} onHide={() => setShowModal(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Asignar Abogado</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {selectedCaso && (
+              <>
+                <p><strong>Caso:</strong> {selectedCaso.titulo}</p>
+                <Form.Group>
+                  <Form.Label>Seleccionar Abogado</Form.Label>
+                  <Form.Select
+                    value={selectedAbogado}
+                    onChange={(e) => setSelectedAbogado(e.target.value)}
+                  >
+                    <option value="">-- Seleccione un abogado --</option>
+                    {abogados.map((abogado) => (
+                      <option key={abogado.id} value={abogado.id}>
+                        {abogado.username}
+                      </option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>
+              </>
+            )}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setShowModal(false)}>
+              Cancelar
+            </Button>
+            <Button
+              variant="primary"
+              onClick={handleAsignar}
+              disabled={!selectedAbogado}
+            >
+              Asignar
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
     </>
   );

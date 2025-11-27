@@ -129,6 +129,8 @@ function NavbarCliente() {
           <Navbar.Collapse id="cliente-navbar" className="navbar-content">
             <Nav className="me-auto navbar-links">
               <Nav.Link onClick={handleInicio}>Inicio</Nav.Link>
+              <Nav.Link onClick={() => navigate('/casos')}>Mis Casos</Nav.Link>
+              <Nav.Link onClick={() => navigate('/mensajeria')}>Mensajería</Nav.Link>
               <Nav.Item>
                 <Nav.Link as={Button} variant="warning" onClick={openModal}>
                   Crear Caso

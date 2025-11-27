@@ -56,13 +56,8 @@ export default function NavbarAbogado() {
             className="navbar-content"
           >
             <Nav className="me-auto navbar-links">
-              <Nav.Link
-                onClick={() =>
-                  navigate(`/dashboard_abogado/${localStorage.getItem("username")}`)
-                }
-              >
-                Casos Activos
-              </Nav.Link>
+              <Nav.Link onClick={() => navigate('/clientes')}>Listado de Clientes</Nav.Link>
+              <Nav.Link onClick={() => navigate('/casos')}>Listado de Casos</Nav.Link>
 
               <Nav.Link onClick={() => setShowAgenda(true)}>
                 Agenda

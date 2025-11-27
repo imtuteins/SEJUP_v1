@@ -77,8 +77,16 @@ public class JwtUtil {
 
     public String generateTokenFromUsername(String username) {
         SecretKey key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+        
+        // Obtener el usuario completo desde la BD para incluir el rol
+        Usuario usuario = usuarioRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        
+        String role = usuario.getRol().getName().name();
+        
         return Jwts.builder()
                 .setSubject(username)
+                .claim("role", role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000L))
                 .signWith(key, SignatureAlgorithm.HS256)

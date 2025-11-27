@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Container, Spinner, Alert, Accordion } from "react-bootstrap";
+import { Container, Spinner, Alert, Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import NavbarAbogado from "./NavbarAbogado";
+import axios from "axios";
 
 import background_abogado from "../background_abogado.jpg";
 
@@ -15,16 +16,29 @@ export default function HomeAbogado() {
   const nombreAbogado = localStorage.getItem("nombre") || username;
 
   useEffect(() => {
-    // Simulación de casos
-    const casosSimulados = [
-      { id: 1, titulo: "Divorcio - Familia Rodríguez", cliente: "Ana Rodríguez", estado: "En progreso" },
-      { id: 2, titulo: "Demanda laboral - Empresa X", cliente: "Luis Vargas", estado: "Pendiente" },
-      { id: 3, titulo: "Accidente de tránsito - Caso Pérez", cliente: "Marcos Pérez", estado: "Investigación" },
-    ];
-
-    setCasos(casosSimulados);
-    setLoading(false);
+    fetchCasos();
   }, []);
+
+  const fetchCasos = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setError('No hay token. Inicia sesión primero.');
+        setLoading(false);
+        return;
+      }
+
+      const res = await axios.get('http://localhost:8080/caso/mis-casos-abogado', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setCasos(res.data);
+    } catch (err) {
+      setError('No se pudieron cargar los casos asignados.');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div
@@ -40,10 +54,11 @@ export default function HomeAbogado() {
     >
       <NavbarAbogado />
 
-      <Container className="home-abogado-container mt-4" style={{ backgroundColor: "rgba(30, 30, 30, 0.9)" }}>
-        <h2 className="home-abogado-title text-center mb-4">
+      <Container className="home-abogado-container mt-4" style={{ backgroundColor: "rgba(30, 30, 30, 0.9)", padding: "20px", borderRadius: "10px" }}>
+        <h2 className="home-abogado-title text-center mb-4 text-light">
           Bienvenido, {nombreAbogado}
         </h2>
+        <h3 className="mb-4 text-light">⚖️ Mis Casos Asignados</h3>
 
         {loading && (
           <div className="text-center text-light">
@@ -58,21 +73,33 @@ export default function HomeAbogado() {
           </Alert>
         )}
 
-        {!loading && !error && (
-          <Accordion className="acordeon-abogado">
-            {casos.map((c) => (
-              <Accordion.Item eventKey={c.id.toString()} key={c.id} className="acordeon-item">
-                <Accordion.Header className="acordeon-header">
-                  {c.titulo} - <span>{c.estado}</span>
-                </Accordion.Header>
-                <Accordion.Body className="acordeon-body">
-                  <p>Cliente: {c.cliente}</p>
-                  <p>Estado: {c.estado}</p>
-                  <p>Descripción: Información detallada del caso...</p>
-                </Accordion.Body>
-              </Accordion.Item>
-            ))}
-          </Accordion>
+        {!loading && casos.length > 0 && (
+          <Table striped bordered hover responsive variant="dark">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Tipo</th>
+                <th>Cliente</th>
+              </tr>
+            </thead>
+            <tbody>
+              {casos.map((caso, index) => (
+                <tr key={caso.id}>
+                  <td>{index + 1}</td>
+                  <td>{caso.titulo}</td>
+                  <td>{caso.descripcion}</td>
+                  <td>{caso.esDemandado ? 'Demandado' : 'Demandante'}</td>
+                  <td>{caso.cliente ? caso.cliente.username : 'N/A'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        )}
+
+        {!loading && casos.length === 0 && !error && (
+          <Alert variant="info">No tienes casos asignados actualmente.</Alert>
         )}
       </Container>
     </div>

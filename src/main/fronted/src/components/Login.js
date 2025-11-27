@@ -10,34 +10,48 @@ export default function Login({ show, onClose }) {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // Función para redirigir según el rol
+  const redirectByRole = (token, username) => {
+    try {
+      const decoded = jwtDecode(token);
+      const role = decoded.role;
+
+      localStorage.setItem('rol', role);
+
+      // Redirigir según el rol
+      if (role === 'ROLE_ADMIN') {
+        navigate(`/dashboard_admin/${username}`);
+      } else if (role === 'ROLE_ABOGADO') {
+        navigate(`/dashboard_abogado/${username}`);
+      } else if (role === 'ROLE_CLIENTE') {
+        navigate(`/dashboard_cliente/${username}`);
+      } else {
+        navigate('/home');
+      }
+    } catch (err) {
+      console.error('Error al decodificar el token:', err);
+      navigate('/home');
+    }
+  };
+
   // Login clásico
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
 
     try {
-      const response = await fetch(`http://localhost:8080/auth/login`, {
+      const response = await fetch('http://localhost:8080/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
       });
 
       if (response.ok) {
-        const token = await response.text(); // JWT como texto
+        const token = await response.text();
         localStorage.setItem('token', token);
-
-        // Decodificar JWT para obtener rol
-        const decoded = jwtDecode(token);
-        const rol = decoded.role; // ROLE_ADMIN, ROLE_ABOGADO, ROLE_CLIENTE
-        localStorage.setItem('rol', rol);
-        localStorage.setItem('username', username); // Guardar username para usar en navbars
-
-        // Redirigir según rol
-        if (rol === 'ROLE_ADMIN') navigate('/dashboard_admin/');
-        else if (rol === 'ROLE_ABOGADO') navigate(`/dashboard_abogado/${username}`);
-        else navigate(`/dashboard_cliente/${username}`);
-
-        onClose(); // cerrar modal
+        localStorage.setItem('username', username);
+        redirectByRole(token, username);
+        onClose();
       } else {
         setError('Usuario o contraseña incorrectos');
       }
@@ -51,7 +65,7 @@ export default function Login({ show, onClose }) {
     const tokenGoogle = credentialResponse.credential;
 
     try {
-      const response = await fetch(`http://localhost:8080/auth/google`, {
+      const response = await fetch('http://localhost:8080/auth/google', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tokenGoogle }),
@@ -60,35 +74,16 @@ export default function Login({ show, onClose }) {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem('token', data.jwt);
-        const rol = data.rol || 'ROLE_CLIENTE';
-        localStorage.setItem('rol', rol);
-
-        localStorage.setItem('token', data.jwt); // no data.token
-        localStorage.setItem('username', data.email); // no data.username
+        localStorage.setItem('username', data.email);
         localStorage.setItem('nombre', data.nombre);
-        localStorage.setItem('rol', 'ROLE_CLIENTE'); // si el login con Google siempre es cliente 
 
-        // Redirección según rol
-        switch (data.rol) {
-          case 'ROLE_ADMIN':
-            navigate(`/dashboard_admin/${data.email}`);
-            break;
-          case 'ROLE_ABOGADO':
-            navigate(`/dashboard_abogado/${data.email}`);
-            break;
-          case 'ROLE_CLIENTE':
-            navigate(`/dashboard_cliente/${data.email}`);
-            break;
-          default:
-            navigate('/home');
-        }
-
-        onClose(); // cerrar modal
+        redirectByRole(data.jwt, data.email);
+        onClose();
       } else {
         setError('Error en login con Google');
       }
-    } catch (err) {
-      console.error('Error login Google:', err);
+    } catch (error) {
+      console.error('Error login Google:', error);
       setError('Error en login con Google');
     }
   };

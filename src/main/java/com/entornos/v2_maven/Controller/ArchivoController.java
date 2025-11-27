@@ -4,7 +4,7 @@ import com.entornos.v2_maven.Entity.Archivo;
 import com.entornos.v2_maven.Reponse.ResponseArchivo;
 import com.entornos.v2_maven.Reponse.ResponseMessage;
 import com.entornos.v2_maven.Service.ArchivoServiceImpl;
-import com.entornos.v2_maven.Service.ArchivoService;
+import com.entornos.v2_maven.Service.Archivoservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

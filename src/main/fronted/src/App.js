@@ -6,10 +6,11 @@ import HomePage from "./components/HomePage";
 import HomeAdmin from "./components/HomeAdmin";
 import HomeAbogado from "./components/HomeAbogado";
 import HomeCliente from "./components/HomeCliente";
-
-// Si después agregas rutas internas (clientes, abogados, casos)
-// las importas aquí, por ejemplo:
-// import ListadoClientes from "./components/ListadoClientes";
+import NavbarAdmin from "./components/NavbarAdmin";
+import ListadoClientes from "./components/ListadoClientes";
+import ListadoAbogados from "./components/ListadoAbogados";
+import ListadoCasos from "./components/ListadoCasos";
+import Archivos from "./components/Archivos";
 
 function App() {
   return (
@@ -27,6 +28,12 @@ function App() {
           <Route path="/dashboard_admin/*" element={<HomeAdmin />} />
           <Route path="/dashboard_abogado/*" element={<HomeAbogado />} />
           <Route path="/dashboard_cliente/*" element={<HomeCliente />} />
+
+          {/* Rutas de Admin */}
+          <Route path="/clientes" element={<><NavbarAdmin /><ListadoClientes /></>} />
+          <Route path="/abogados" element={<><NavbarAdmin /><ListadoAbogados /></>} />
+          <Route path="/casos" element={<><NavbarAdmin /><ListadoCasos /></>} />
+          <Route path="/archivos" element={<Archivos />} />
 
           {/* Fallback para rutas no encontradas */}
           <Route path="*" element={<Navigate to="/home" />} />

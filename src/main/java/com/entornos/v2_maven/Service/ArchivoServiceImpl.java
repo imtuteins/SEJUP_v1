@@ -1,12 +1,10 @@
 package com.entornos.v2_maven.Service;
 
 import com.entornos.v2_maven.Entity.Archivo;
-import com.entornos.v2_maven.Entity.Caso;
 import com.entornos.v2_maven.Entity.Rol;
 import com.entornos.v2_maven.Entity.Usuario;
 import com.entornos.v2_maven.Reponse.ResponseArchivo;
 import com.entornos.v2_maven.Repository.ArchivoRepository;
-import com.entornos.v2_maven.Repository.CasoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,16 +22,13 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class ArchivoServiceImpl implements ArchivoService {
+public class ArchivoServiceImpl implements Archivoservice {
 
     @Autowired
     private ArchivoRepository archivoRepository;
 
     @Autowired
     private UsuarioService usuarioService;
-
-    @Autowired
-    private CasoRepository casoRepository;
 
     @Override
     public Archivo store(MultipartFile file) throws IOException {
@@ -83,8 +78,7 @@ public class ArchivoServiceImpl implements ArchivoService {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails) principal).getUsername();
 
-        Usuario usuario = usuarioService.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado: " + username));
+        Usuario usuario = usuarioService.findByUsername(username);
 
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
 
@@ -94,24 +88,6 @@ public class ArchivoServiceImpl implements ArchivoService {
                 .data(file.getBytes())
                 .fechaSubida(LocalDateTime.now())
                 .usuario(usuario)
-                .build();
-
-        return archivoRepository.save(archivo);
-    }
-
-    @Override
-    public Archivo storeForCase(MultipartFile file, Long casoId) throws IOException {
-        Caso caso = casoRepository.findById(casoId)
-                .orElseThrow(() -> new RuntimeException("Caso no encontrado: " + casoId));
-
-        String filename = StringUtils.cleanPath(file.getOriginalFilename());
-
-        Archivo archivo = Archivo.builder()
-                .nombreArchivo(filename)
-                .tipoArchivo(file.getContentType())
-                .data(file.getBytes())
-                .fechaSubida(LocalDateTime.now())
-                .caso(caso)
                 .build();
 
         return archivoRepository.save(archivo);

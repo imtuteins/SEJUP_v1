@@ -9,7 +9,7 @@ function ListadoAbogados() {
       try {
         const token = localStorage.getItem('token');
 
-        const response = await fetch(`http://localhost:8080/admin/abogados`, {
+        const response = await fetch(`http://localhost:8080/usuarios/abogados`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

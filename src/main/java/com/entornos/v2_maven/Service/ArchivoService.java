@@ -10,8 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface ArchivoService {
-
+public interface Archivoservice {
 
     //Permite almacenar archivos
     Archivo store(MultipartFile file) throws IOException;
@@ -23,8 +22,6 @@ public interface ArchivoService {
     List<ResponseArchivo> getfiles();
 
     Archivo storeForCurrentUser(MultipartFile file) throws IOException;
-
-    Archivo storeForCase(MultipartFile file, Long casoId) throws IOException;
 
     List<Archivo> getAllFiles();
 }

@@ -29,8 +29,4 @@ public class Archivo {
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
-
-    @ManyToOne
-    @JoinColumn(name = "caso_id")
-    private Caso caso;
 }

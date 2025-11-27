@@ -9,5 +9,6 @@ import java.util.Optional;
 
 public interface CasoRepository extends JpaRepository<Caso, Long> {
     List<Caso> findByCliente(Usuario idCliente);
+    List<Caso> findByAbogado(Usuario abogado);
 
 }

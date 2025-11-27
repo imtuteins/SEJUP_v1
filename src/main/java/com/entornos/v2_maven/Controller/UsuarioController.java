@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-@Controller
-@RequestMapping("/admin")
+@RestController
+@RequestMapping("/usuarios")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
@@ -21,10 +22,16 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    @GetMapping("/usuarios")
+    @GetMapping
     public ResponseEntity<List<Usuario>> getAllUsers() {
         List<Usuario> usuarios = usuarioService.findAll();
         return ResponseEntity.ok(usuarios);
+    }
+
+    @GetMapping("/username/{username}")
+    public ResponseEntity<Usuario> getUserByUsername(@PathVariable String username) {
+        Usuario usuario = usuarioService.findByUsername(username);
+        return ResponseEntity.ok(usuario);
     }
 
     @GetMapping("/usuarios-view")
@@ -34,14 +41,14 @@ public class UsuarioController {
 
     }
 
-    @PutMapping("/usuarios/{id}/role")
+    @PutMapping("/{id}/role")
     public ResponseEntity<String> updateUserRole(@PathVariable Long id, @RequestBody Map<String, String> body) {
         String rolName = body.get("rolName");
         usuarioService.updateUserRole(id, rolName);
         return ResponseEntity.ok("Rol actualizado");
     }
 
-    @DeleteMapping("/usuarios/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         usuarioService.deleteUserById(id);
         return ResponseEntity.ok("Usuario eliminado");
